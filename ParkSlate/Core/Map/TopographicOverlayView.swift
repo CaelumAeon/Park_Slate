@@ -3,8 +3,12 @@ import SwiftUI
 /// MVP visual renderer for PARK//SLATE's topo language.
 /// Production path: replace this procedural layer with geolocal elevation contours
 /// generated from DEM/vector-tile data around the current map camera.
-struct TopographicOverlayView: View {
+struct TopographicOverlayView: View, Animatable {
     var pulse: CGFloat = 0
+    var animatableData: CGFloat {
+        get { pulse }
+        set { pulse = newValue }
+    }
 
     var body: some View {
         Canvas { context, size in

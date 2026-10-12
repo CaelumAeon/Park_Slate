@@ -12,7 +12,11 @@ struct LocationStatusView: View {
                 .font(.callout)
                 .accessibilityIdentifier("locationStatus")
             if !slate.isDemo {
-                if let error = location.lastError { Text(error).font(.caption) }
+                if let error = location.lastError {
+                    Text(error).font(.caption)
+                } else if location.permission.canLocate && location.location == nil {
+                    Text("Waiting for a location fix. Browsing is available now.").font(.caption)
+                }
                 if location.permission == .notDetermined {
                     Button("Enable Location") { location.requestAccessAndStart() }
                         .accessibilityIdentifier("enableLocation")

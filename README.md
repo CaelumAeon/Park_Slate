@@ -2,7 +2,11 @@
 
 A native iOS field navigator built around exploration of Central Park, New York.
 
-## Current milestone: v0.0.1
+## Current milestone: Foundation F1 (verification pending)
+
+F1 adds Atlas/Discovery/Compendium navigation, optional foreground location, safe demo browsing, persisted Awakening completion and accessibility support. Landmarks are read-only previews; no discovery awards, journal persistence, CloudKit, AI or AR are implemented. See [baseline audit](docs/BASELINE_AUDIT.md) and [F1 validation and device checks](docs/F1_IMPLEMENTATION.md). Simulator build and XCTest execution require macOS and have not been verified in the Linux implementation environment.
+
+## Original v0.0.1 starter
 
 This starter establishes:
 
@@ -26,7 +30,7 @@ This starter establishes:
 ## Open the project
 
 ```bash
-cd ParkSlate
+cd Park_Slate # repository root, where project.yml lives
 xcodegen generate
 open ParkSlate.xcodeproj
 ```
@@ -99,3 +103,4 @@ Keep authoritative facts in curated data. Use AI as an interpretation layer for:
 3. Build the exact two-spark clockwise ring animation: upper-right + lower-left → orange trace → teal connection.
 4. Detect first Central Park entry and fire the awakening sequence once.
 5. Persist that first-awakening state locally.
+

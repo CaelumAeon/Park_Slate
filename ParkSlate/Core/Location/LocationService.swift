@@ -65,12 +65,18 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
     }
 
     func refresh() {
+        let previousPermission = permission
         if let simulatedPermission {
             permission = simulatedPermission
         } else {
             permission = .resolve(status: manager.authorizationStatus,
                                   accuracy: manager.accuracyAuthorization,
                                   servicesEnabled: CLLocationManager.locationServicesEnabled())
+        }
+        if permission != previousPermission || location.map({ !Self.usable($0) }) == true {
+            location = nil
+            isInsideCentralPark = false
+            lastError = nil
         }
         if !permission.canLocate || demo || !foreground {
             manager.stopUpdatingLocation()

@@ -4,6 +4,7 @@ import MapKit
 struct ParkMapView: View {
     @Environment(LocationService.self) private var location
     @Environment(SlateState.self) private var slate
+    @Environment(\.dynamicTypeSize) private var dynamicType
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var camera: MapCameraPosition = .region(CentralParkRegion.cameraRegion)
     @State private var pulse: CGFloat = -0.2
@@ -36,37 +37,25 @@ struct ParkMapView: View {
         .navigationTitle("Atlas")
         .navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .top) {
-            VStack(alignment: .leading, spacing: 8) {
-                LocationStatusView()
-                Text("Sample landmarks · decorative contours")
-                    .font(.caption)
-                    .foregroundStyle(SlateColors.warmIvory)
+            if dynamicType.isAccessibilitySize {
+                ScrollView { statusHeader }
+                    .frame(maxHeight: 200)
+                    .background(SlateColors.deepNavy.opacity(0.95))
+            } else {
+                statusHeader
             }
-            .padding(12)
-            .background(SlateColors.deepNavy.opacity(0.95))
         }
         .safeAreaInset(edge: .bottom) {
-            HStack {
-                Button {
-                    showLandmarks = true
-                } label: {
-                    Label("Landmarks", systemImage: "list.bullet")
+            ViewThatFits(in: .horizontal) {
+                HStack {
+                    landmarkButton
+                    Spacer()
+                    recenterButton
                 }
-                .accessibilityIdentifier("landmarks")
-                Spacer()
-                Button {
-                    if slate.isDemo {
-                        camera = .region(CentralParkRegion.cameraRegion)
-                    } else if let fix = location.location, LocationService.usable(fix) {
-                        camera = .camera(MapCamera(centerCoordinate: fix.coordinate,
-                                                  distance: 900, heading: 0,
-                                                  pitch: reduceMotion ? 0 : 45))
-                    }
-                } label: {
-                    Label(slate.isDemo ? "Park" : "My Location", systemImage: "location.fill")
+                VStack(alignment: .leading) {
+                    landmarkButton
+                    recenterButton
                 }
-                .disabled(!slate.isDemo && !hasUsableFix)
-                .accessibilityHint(slate.isDemo ? "Centers the demo on Central Park" : "Centers on your latest position")
             }
             .font(.body)
             .tint(SlateColors.teal)
@@ -105,6 +94,44 @@ struct ParkMapView: View {
         }
         .onAppear { updatePulse() }
         .onChange(of: reduceMotion) { _, _ in updatePulse() }
+    }
+
+    private var statusHeader: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            LocationStatusView()
+            Text("Sample landmarks · decorative contours")
+                .font(.caption)
+                .foregroundStyle(SlateColors.warmIvory)
+        }
+        .padding(12)
+        .background(SlateColors.deepNavy.opacity(0.95))
+    }
+
+    private var landmarkButton: some View {
+        Button {
+            showLandmarks = true
+        } label: {
+            Label("Landmarks", systemImage: "list.bullet")
+        }
+        .frame(minHeight: 44)
+        .accessibilityIdentifier("landmarks")
+    }
+
+    private var recenterButton: some View {
+        Button {
+            if slate.isDemo {
+                camera = .region(CentralParkRegion.cameraRegion)
+            } else if let fix = location.location, LocationService.usable(fix) {
+                camera = .camera(MapCamera(centerCoordinate: fix.coordinate,
+                                          distance: 900, heading: 0,
+                                          pitch: reduceMotion ? 0 : 45))
+            }
+        } label: {
+            Label(slate.isDemo ? "Park" : "My Location", systemImage: "location.fill")
+        }
+        .frame(minHeight: 44)
+        .disabled(!slate.isDemo && !hasUsableFix)
+        .accessibilityHint(slate.isDemo ? "Centers the demo on Central Park" : "Centers on your latest position")
     }
 
     private var hasUsableFix: Bool {
