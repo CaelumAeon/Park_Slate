@@ -15,7 +15,7 @@ Every tracked file was read; no AGENTS.md, generated Xcode project, dependencies
 - Core/Map/TopographicOverlayView.swift is decorative procedural sine-wave Canvas, unrelated to terrain/camera.
 - Core/Design/SlateColors.swift defines existing palette. SlateTypography.swift uses fixed sizes, not Dynamic Type.
 - Resources/Info.plist contains When In Use purpose and empty launch screen. Asset catalog contains teal accent, metadata and empty icon images.
-- project.yml defines iOS 17, Swift 5.10, app version 0.0.1, no test targets/signing team. README incorrectly says generate inside ParkSlate; project.yml is at repository root.
+- project.yml defines iOS 17, SWIFT_VERSION 5.10 (a compiler release, not a supported Swift language mode; corrected to 5.0 in F1), app version 0.0.1, no test targets/signing team. README incorrectly says generate inside ParkSlate; project.yml is at repository root.
 - README.md and docs/FOUNDATION_V0.1.0.md describe starter and proposed gates, not certification.
 
 ## Baseline execution (Linux, 2026-10-12)
@@ -30,3 +30,4 @@ xcodebuild -project ParkSlate.xcodeproj -scheme ParkSlate -destination 'platform
 All exited 127: command not found. Swift also unavailable. No simulator launch/build/tests verified. Physical deployment requires macOS, Xcode, provisioning team and device. Empty app icon remains a delivery placeholder.
 
 F2 geography/contours/provenance and F3 accuracy/proximity/dwell/confirmation/dedupe/SwiftData remain unimplemented. CloudKit, AI and AR are deferred. F1 must not award discoveries using these sample data.
+

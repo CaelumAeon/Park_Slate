@@ -11,6 +11,7 @@ Status: implemented in source, **not build-certified**. Linux workspace has no S
 - Demo is explicitly entered/exited. It stops real tracking, hides the MapKit user annotation, ignores location callbacks and does not save Awakening completion. Xcode preview and debug UI fixtures use simulated permission without starting/requesting location updates. Demo does not persist across launch.
 - There is **no discovery award or journal-writing API** in F1. Live and demo catalog states remain unknown. Stable sample IDs replace random launch IDs. Accuracy/proximity/dwell/user-confirmation validation and discovery persistence remain F3 work.
 - Existing navy/ivory/orange/teal palette and serif/monospaced typography remain. Fonts scale relative to Dynamic Type. Awakening/details scroll; large-type Atlas status scrolls in a bounded panel and bottom controls adapt to vertical layout. Markers have spoken labels/state, decorative graphics are hidden from VoiceOver, controls have text and minimum touch areas. Dark theme remains forced.
+- project.yml uses Swift language mode 5.0; the baseline value 5.10 was a compiler release rather than a supported language-mode argument. This correction was identified by static review, not a run compiler diagnostic.
 - Info.plist now includes explicit bundle identity/executable/version/package keys for generated-project install metadata. The original location purpose is retained. README generation instructions now point to repository root.
 
 ## Changed files
