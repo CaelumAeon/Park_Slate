@@ -1,11 +1,15 @@
 import SwiftUI
+import UIKit
 
 enum SlateTypography {
     static func display(_ size: CGFloat) -> Font {
-        .system(size: size, weight: .light, design: .serif)
+        let descriptor = UIFont.systemFont(ofSize: size, weight: .light).fontDescriptor
+            .withDesign(.serif) ?? UIFont.systemFont(ofSize: size, weight: .light).fontDescriptor
+        return .custom(UIFont(descriptor: descriptor, size: size).fontName, size: size, relativeTo: .title)
     }
 
     static func data(_ size: CGFloat) -> Font {
-        .system(size: size, weight: .medium, design: .monospaced)
+        .custom(UIFont.monospacedSystemFont(ofSize: size, weight: .medium).fontName,
+                size: size, relativeTo: .body)
     }
 }

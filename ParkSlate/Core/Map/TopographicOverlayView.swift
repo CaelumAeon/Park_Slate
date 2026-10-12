@@ -27,6 +27,8 @@ struct TopographicOverlayView: View {
             }
         }
         .allowsHitTesting(false)
+        .accessibilityHidden(true)
         .blendMode(.screen)
     }
 }
+
