@@ -12,7 +12,7 @@ struct TreeGlyphView: View {
             if reduceMotion {
                 tree
             } else {
-                tree.symbolEffect(.appear, value: traceProgress > 0.5)
+                tree.symbolEffect(.appear, isActive: traceProgress > 0.5)
             }
         }
         .frame(width: 150, height: 150)

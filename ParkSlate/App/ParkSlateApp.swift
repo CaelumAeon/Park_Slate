@@ -36,8 +36,12 @@ struct ParkSlateApp: App {
         WindowGroup {
             Group {
                 if testAccessibility {
+                    // accessibilityReduceMotion is read-only; suppress animations directly instead.
                     RootView()
-                        .environment(\.accessibilityReduceMotion, true)
+                        .transaction { transaction in
+                            transaction.disablesAnimations = true
+                            transaction.animation = nil
+                        }
                         .environment(\.dynamicTypeSize, .accessibility5)
                 } else {
                     RootView()

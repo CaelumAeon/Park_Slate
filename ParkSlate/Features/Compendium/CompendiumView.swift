@@ -24,6 +24,8 @@ struct CompendiumView: View {
                                 .foregroundStyle(SlateColors.electricOrange)
                         }
                     }
+                    .accessibilityLabel(discovery.name)
+                    .accessibilityValue("Not discovered · Preview")
                 }
                 .listRowBackground(SlateColors.navy)
             }
